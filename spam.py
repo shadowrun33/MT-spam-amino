@@ -7,10 +7,6 @@ init()
 print(Back.BLACK)
 print(Fore.YELLOW)
 
-num = 0
-comIds = []
-chatIds = []
-
 print(pyfiglet.figlet_format("mt spam", font="big"))
 print("         ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓")
 print("         ┃by shadowrun                   ")
