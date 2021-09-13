@@ -19,7 +19,7 @@ password = str(input("Пароль/Password > "))
 client = AminoLab.Client()
 client.auth(email=email, password=password)
 
-print("Успешный вход/Login succeded")
+print("Успешный вход/Login succeeded")
 
 com = client.my_communities()
 for name, ndc_Id in zip(com.name, com.ndc_Id):
