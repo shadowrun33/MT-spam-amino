@@ -1,7 +1,8 @@
-import amino
+import AminoLab  #библиотека https://github.com/LilZevi
 import pyfiglet
 from colorama import init, Fore, Back, Style
 from threading import Thread
+
 
 init()
 print(Back.BLACK)
@@ -12,67 +13,32 @@ print("         ┏━━━━━━━━━━━━━━━━━━━━�
 print("         ┃by shadowrun                   ")
 print("         ┃https://github.com/shadowrun33/")
 print("         ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛")
+
 email = str(input("Почта/Email > "))
 password = str(input("Пароль/Password > "))
-client = amino.Client()
-client.login(email=email, password=password)
+client = AminoLab.Client()
+client.auth(email=email, password=password)
 
 print("Успешный вход/Login succeded")
 
-com = client.sub_clients(0, 100)
-for name, comId in zip(com.name, com.comId):
-    print(f"{name} - {comId}")
+com = client.my_communities()
+for name, ndc_Id in zip(com.name, com.ndc_Id):
+    print(f"{name} - {ndc_Id}")
+ndc_Id = int(input("Id сообщества/Communit Id > "))
 
-com1d = str(input("comId > "))
+chat = client.my_chat_threads(ndc_Id = ndc_Id, size = 100)
+for title, thread_Id in zip(chat.title, chat.thread_Id):
+    print(f"{title} - {thread_Id}")
+thread_Id = str(input("Id чата/Chat Id > "))
 
-subclient = amino.SubClient(com1d, profile=client.profile)
+message_type = int(input("Тип сообщений/Message type > "))
 
-print("Зашли в сообщество/Entered comunity")
-
-chat = subclient.get_chat_threads(start=0, size=100)
-for title, chatId in zip(chat.title, chat.chatId):
-    print(f"{title} - {chatId}")
-
-chatId = str(input("chatId > "))
-messagetype = int(input("Тип сообщений/Message type > "))
 message = str(input("Сообщение/Message > "))
-kak = int(input("1) Спам определенного колличества/Define how many.\n2) Спам без остановок/Nonstop spam.\n> "))
-if kak == 1:
-    n = 0
-    colvo = int(input("Сколько/How many?\n1 заход = 6 сообщений/1 = 6 messages.\n> "))
-    while n < colvo:
-        T = Thread(target=subclient.send_message, args=(chatId, message, messagetype))
-        T2 = Thread(target=subclient.send_message, args=(chatId, message, messagetype))
-        T3 = Thread(target=subclient.send_message, args=(chatId, message, messagetype))
-        T4 = Thread(target=subclient.send_message, args=(chatId, message, messagetype))
-        T5 = Thread(target=subclient.send_message, args=(chatId, message, messagetype))
-        T6 = Thread(target=subclient.send_message, args=(chatId, message, messagetype))
-        T.start()
-        T2.start()
-        T3.start()
-        T4.start()
-        T5.start()
-        T6.start()
-        n+=1
-        print("Спам в процессе/Spamming")
-elif kak == 2:
-    while True:
-        T = Thread(target=subclient.send_message, args=(chatId, message, messagetype))
-        T2 = Thread(target=subclient.send_message, args=(chatId, message, messagetype))
-        T3 = Thread(target=subclient.send_message, args=(chatId, message, messagetype))
-        T4 = Thread(target=subclient.send_message, args=(chatId, message, messagetype))
-        T5 = Thread(target=subclient.send_message, args=(chatId, message, messagetype))
-        T6 = Thread(target=subclient.send_message, args=(chatId, message, messagetype))
-        T.start()
-        T2.start()
-        T3.start()
-        T4.start()
-        T5.start()
-        T6.start()
-        print("Спам в процессе/Spamming")
-else:
-    print("Ты дурак?/R u dumb?")
-    exit
-    
+
+while True:
+    threads = [Thread(target = client.send_message, args=(ndc_Id, thread_Id, message, message_type)) for x in range(100)]
+    for t in threads:
+        t.start()
+    print("spamming")
 
 
