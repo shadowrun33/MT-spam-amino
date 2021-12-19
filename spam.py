@@ -14,8 +14,8 @@ print("         ┃by shadowrun                   ")
 print("         ┃https://github.com/shadowrun33/")
 print("         ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛")
 
-email = str(input("Почта/Email > "))
-password = str(input("Пароль/Password > "))
+email = str(input("thedimeplay@gmail.com"))
+password = str(input("art2005vv"))
 client = AminoLab.Client()
 client.auth(email=email, password=password)
 
