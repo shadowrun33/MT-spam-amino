@@ -11,4 +11,4 @@ $ cd MT-spam-amino
 
 $ pip install -r requirements.txt
 
-$ python spam.py
+$ python main.py
