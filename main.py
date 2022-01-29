@@ -17,7 +17,10 @@ print("         ┗━━━━━━━━━━━━━━━━━━━━�
 email = str(input("Почта/Email > "))
 password = str(input("Пароль/Password > "))
 client = aminofix.Client()
-client.login(email=email, password=password)
+try:
+    client.login(email=email, password=password)
+except aminofix.lib.util.exceptions.VerificationRequired as e:
+    print(f'Verification Required, verification link:\n{e.args[0]["url"]}')
 
 print("Успешный вход/Login succeeded")
 
