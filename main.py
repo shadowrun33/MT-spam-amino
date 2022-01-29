@@ -21,6 +21,7 @@ try:
     client.login(email=email, password=password)
 except aminofix.lib.util.exceptions.VerificationRequired as e:
     print(f'Verification Required, verification link:\n{e.args[0]["url"]}')
+    input("\nWhen ready press enter.")
 
 print("Успешный вход/Login succeeded")
 
